@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  begin: MyString
+  end: MyString
+  date: 2024-03-04
+  summary: MyString
+  room: MyString
+  course: 1
+  total_attend: 1
+  total_not_attend: 1
+
+two:
+  name: MyString
+  begin: MyString
+  end: MyString
+  date: 2024-03-04
+  summary: MyString
+  room: MyString
+  course: 1
+  total_attend: 1
+  total_not_attend: 1
