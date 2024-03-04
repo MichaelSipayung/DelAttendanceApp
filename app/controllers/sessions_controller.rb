@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
     if response['result']
       user = User.find_or_create_by(username: response['username'], user_id: response['user_id'])
       session[:user_id] = user.id
-      # redirect_to root_path
-      flash[:notice] = 'You have successfully logged in'
+      flash[:success] = "Logged in successfully!"
+      redirect_to new_attendance_session_path
     else
       flash.now[:alert] = 'Invalid username or password'
       render :new

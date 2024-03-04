@@ -1,0 +1,24 @@
+<% provide(:title, "Attendance Session") %>
+<h1>Attendance Session</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(url: attendance_session_path, scope: :attendance_session, local: true,
+                  data: {turbo: false}) do |f|%>
+      <%= f.label :nama_sesi %>
+      <%= f.text_field :name, class: "form-control" %>
+
+      <%= f.label :mulai %>
+      <%= f.text_field :begin, class: "form-control" %>
+
+      <%= f.label :berakhir %>
+      <%= f.text_field :end, class: "form-control" %>
+
+      <%= f.label :summary %>
+      <%= f.text_field :summary, class: "form-control" %>
+
+      <%= f.label :ruangan %>
+      <%= f.text_field :room, class: "form-control" %>
+      <%=f.submit "Buat sesi", class: "btn btn-primary"%>
+    <%end %>
+  </div>
+</div>
