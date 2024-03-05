@@ -1,12 +1,9 @@
-<% provide(:title, "Attendance Session") %>
+<% provide(:title, "Edit Attendance Session") %>
 <h1>Attendance Session</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @attendance_session, scope: :attendance_session, local: true,
                   data: {turbo: false}) do |f|%>
-      <%= f.label :Pilih_mata_kuliah %>
-      <%= f.select :course, options_from_collection_for_select(@attendance_session_dropdown, 'kuliah_id', 'nama_kul_ind'),
-                   {}, {class: 'form-select'}%>
       <%= f.label :nama_sesi %>
       <%= f.text_field :name, class: "form-control" %>
 

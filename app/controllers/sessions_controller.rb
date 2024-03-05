@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     response = AuthenticationService.new.authenticate(params[:session][:username], params[:session][:password])
     if response['result']
       user = User.find_or_create_by(username: response['username'], user_id: response['user_id'])
-      session[:user_id] = user.id
+      session[:user_id] = user.user_id
       flash[:success] = "Logged in successfully!"
       redirect_to new_attendance_session_path
     else
