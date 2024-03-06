@@ -19,4 +19,5 @@ class HrdxPegawai < ActiveRecord::Base
     dim_krs=PrklKrsMhs.find(krs_mahasiswa).pluck(:dim_id)
     DimxDim.find(dim_krs)
   end
+
 end

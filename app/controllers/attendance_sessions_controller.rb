@@ -1,7 +1,10 @@
 class AttendanceSessionsController < ApplicationController
   before_action :set_attendance_dropdown, only: [:new, :edit]
   def index
-    @attendance_sessions = current_hrdx_user.attendance_sessions.all
+    #@attendance_sessions = current_hrdx_user.attendance_sessions.all
+    @attendance_sessions = current_hrdx_user.attendance_sessions.order(created_at: :desc)
+    #.limit(12)
+    # @total_students = current_hrdx_user.total_students(@attendance_sessions)
   end
 
   def show
@@ -15,6 +18,8 @@ class AttendanceSessionsController < ApplicationController
   def create
     @attendance_session = current_hrdx_user.attendance_sessions.build(attendance_session_params)
     if @attendance_session.save
+      @my_students = current_hrdx_user.my_students(@attendance_session.course)
+      AttendanceSession.update_total_enrolled(@my_students.count)
       redirect_to @attendance_session
     else
       render :new

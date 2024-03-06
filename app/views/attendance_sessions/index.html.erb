@@ -14,9 +14,9 @@
           <p class="card-text"><i class="bi bi-card-text"></i> <%= attendance_session.summary %></p>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="bi bi-person-check-fill"></i>
-              Total Attend: <%= attendance_session.total_attend %></li>
+              Total not attend: <%= attendance_session.attendance_logs.count %></li>
             <li class="list-group-item"><i class="bi bi-person-x-fill"></i>
-              Total Not Attend: <%= attendance_session.total_not_attend %></li>
+              Total Attend: <%= attendance_session.total_not_attend-attendance_session.attendance_logs.count%></li>
             <li class="list-group-item"><i class="bi bi-book-fill"></i> Course: <%= attendance_session.course %></li>
           </ul>
         </div>

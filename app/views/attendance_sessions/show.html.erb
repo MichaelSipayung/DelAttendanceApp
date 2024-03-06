@@ -8,39 +8,42 @@
         <div class="card-body">
           <p><strong>Topic:</strong> <%= @attendance_session.name %></p>
           <p><strong>Summary:</strong> <%= @attendance_session.summary %></p>
-          <p><strong>Total Attend:</strong> <%= @attendance_session.total_attend %></p>
-          <p><strong>Total Not Attend:</strong> <%= @attendance_session.total_not_attend %></p>
+<!--          <p><strong>Total Attend:</strong> <%#= @attendance_session.total_attend %></p>-->
+<!--          <p><strong>Total Not Attend:</strong> <%#= @attendance_session.total_not_attend %></p>-->
           <p><strong>Total Enrolled Students:</strong> <%= @my_students.count %></p>
-
+          <%= submit_tag 'Submit', class: 'btn btn-primary' %>
           <hr>
-
-          <% @my_students.each_slice(3).with_index do |students, row_index| %>
-            <div class="row">
-              <% students.each do |student| %>
-                <div class="col-md-4">
-                  <div class="card mb-3">
-                    <div class="card-header bg-<%= ['primary', 'secondary', 'success', 'danger', 'warning', 'info'][row_index % 6] %> text-white">
-                      <h5 class="card-title"><i class="bi bi-person-fill"></i> <%= student.nama %></h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="row border-bottom pb-2 mb-2">
-                        <div class="col-4"><strong>NIM:</strong></div>
-                        <div class="col-8"><%= student.nim %></div>
-                      </div>
-                      <div class="row border-bottom pb-2 mb-2">
-                        <div class="col-4"><strong>Status:</strong></div>
-                        <div class="col-8"><%= student.nim %></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <%= form_with(url: attendance_logs_path, method: :post, local: true, data: {turbo: false}) do %>
+            <%=hidden_field_tag :attendance_session_id, @attendance_session.id %>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">NIM</th>
+                <th scope="col">Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @my_students.each_with_index do |student, index| %>
+                <tr>
+                  <th scope="row"><%= index + 1 %></th>
+                  <td><%= student.nama %></td>
+                  <td><%= student.nim %></td>
+                  <td>
+                    <select name="attendance_logs[<%= student.id %>][status]" class="form-select">
+                      <%= options_for_select(AttendanceStatus.available_status) %>
+                    </select>
+                  </td>
+                </tr>
               <% end %>
-            </div>
+              </tbody>
+            </table>
+            <%= submit_tag 'Submit', class: 'btn btn-primary' %>
           <% end %>
-
           <hr>
-
-          <%= link_to '<i class="bi bi-pencil-fill"></i> Edit Session'.html_safe, edit_attendance_session_path(@attendance_session), class: 'btn btn-primary' %>
+          <%= link_to '<i class="bi bi-pencil-fill"></i> Edit Session'.html_safe,
+                      edit_attendance_session_path(@attendance_session), class: 'btn btn-primary' %>
         </div>
       </div>
     </div>
