@@ -3,5 +3,9 @@
 <p>Summary: <b><%= @attendance_session.summary %></b></p>
 <p>total_attend: <b><%= @attendance_session.total_attend %></b></p>
 <p>total_not_attend: <b><%= @attendance_session.total_not_attend %></b></p>
-<p>course: <b><%= @attendance_session.course %></b></p>
+<p>total enrolled student: <b><%= @my_students.count %></b></p>
+<!-- show all student -->
+<% @my_students.each do |student| %>
+  <p> <b> Nama : </b> <%= student.nama %> <b>NIM : </b><%= student.nim %></p>
+<% end %>
 <p><%= link_to 'Edit sesi kuliah',edit_attendance_session_path(@attendance_session) %></p>

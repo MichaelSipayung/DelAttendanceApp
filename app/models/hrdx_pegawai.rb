@@ -10,4 +10,13 @@ class HrdxPegawai < ActiveRecord::Base
   def my_courses
     self.adak_penugasan_pengajarans.where(pengajaran_id: AdakPengajaran.all_pengajaran)
   end
+
+  def my_students(pengajaran_id)
+    krs_mahasiswa = PrklKrsDetail.joins(:prkl_krs_mhs)
+                                 .where(pengajaran_id: pengajaran_id, deleted: [nil, 0])
+                                 .where(prkl_krs_mhs: {status_approval: 1})
+                                  .pluck(:krs_mhs_id)
+    dim_krs=PrklKrsMhs.find(krs_mahasiswa).pluck(:dim_id)
+    DimxDim.find(dim_krs)
+  end
 end

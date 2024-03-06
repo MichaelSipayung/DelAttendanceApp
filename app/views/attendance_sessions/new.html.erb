@@ -5,8 +5,11 @@
     <%= form_with(model: @attendance_session, scope: :attendance_session, local: true,
                   data: {turbo: false}) do |f|%>
       <%= f.label :Pilih_mata_kuliah %>
-      <%= f.select :course, options_from_collection_for_select(@attendance_session_dropdown, 'kuliah_id', 'nama_kul_ind'),
-                   {}, {class: 'form-select'}%>
+      <%= f.select :course,
+                   options_for_select(
+                     @attendance_session_dropdown.map{ |option| [option[:nama_kul_ind],
+                                                                 option[:pengajaran_id]] }),
+                   {}, {class: 'form-select'} %>
       <%= f.label :nama_sesi %>
       <%= f.text_field :name, class: "form-control" %>
 
