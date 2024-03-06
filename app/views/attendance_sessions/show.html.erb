@@ -1,11 +1,48 @@
-<h1> Attendance session list </h1>
-<p>Topik  : <b><%= @attendance_session.name %></b></p>
-<p>Summary: <b><%= @attendance_session.summary %></b></p>
-<p>total_attend: <b><%= @attendance_session.total_attend %></b></p>
-<p>total_not_attend: <b><%= @attendance_session.total_not_attend %></b></p>
-<p>total enrolled student: <b><%= @my_students.count %></b></p>
-<!-- show all student -->
-<% @my_students.each do |student| %>
-  <p> <b> Nama : </b> <%= student.nama %> <b>NIM : </b><%= student.nim %></p>
-<% end %>
-<p><%= link_to 'Edit sesi kuliah',edit_attendance_session_path(@attendance_session) %></p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card shadow-lg rounded">
+        <div class="card-header text-center bg-primary text-white">
+          <h1><i class="bi bi-calendar-check-fill"></i> Attendance Session List</h1>
+        </div>
+        <div class="card-body">
+          <p><strong>Topic:</strong> <%= @attendance_session.name %></p>
+          <p><strong>Summary:</strong> <%= @attendance_session.summary %></p>
+          <p><strong>Total Attend:</strong> <%= @attendance_session.total_attend %></p>
+          <p><strong>Total Not Attend:</strong> <%= @attendance_session.total_not_attend %></p>
+          <p><strong>Total Enrolled Students:</strong> <%= @my_students.count %></p>
+
+          <hr>
+
+          <% @my_students.each_slice(3).with_index do |students, row_index| %>
+            <div class="row">
+              <% students.each do |student| %>
+                <div class="col-md-4">
+                  <div class="card mb-3">
+                    <div class="card-header bg-<%= ['primary', 'secondary', 'success', 'danger', 'warning', 'info'][row_index % 6] %> text-white">
+                      <h5 class="card-title"><i class="bi bi-person-fill"></i> <%= student.nama %></h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="row border-bottom pb-2 mb-2">
+                        <div class="col-4"><strong>NIM:</strong></div>
+                        <div class="col-8"><%= student.nim %></div>
+                      </div>
+                      <div class="row border-bottom pb-2 mb-2">
+                        <div class="col-4"><strong>Status:</strong></div>
+                        <div class="col-8"><%= student.nim %></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
+          <hr>
+
+          <%= link_to '<i class="bi bi-pencil-fill"></i> Edit Session'.html_safe, edit_attendance_session_path(@attendance_session), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
