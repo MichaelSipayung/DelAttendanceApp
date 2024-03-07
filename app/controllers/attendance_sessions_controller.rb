@@ -1,8 +1,9 @@
 class AttendanceSessionsController < ApplicationController
-  before_action :set_attendance_dropdown, only: [:new, :edit]
+  before_action :set_attendance_dropdown, only: [:new, :edit, :index, :create, :update]
   def index
     #@attendance_sessions = current_hrdx_user.attendance_sessions.all
     @attendance_sessions = current_hrdx_user.attendance_sessions.order(created_at: :desc)
+    @attendance_session = current_hrdx_user.attendance_sessions.build
     #.limit(12)
     # @total_students = current_hrdx_user.total_students(@attendance_sessions)
   end
@@ -19,10 +20,12 @@ class AttendanceSessionsController < ApplicationController
     @attendance_session = current_hrdx_user.attendance_sessions.build(attendance_session_params)
     if @attendance_session.save
       @my_students = current_hrdx_user.my_students(@attendance_session.course)
-      AttendanceSession.update_total_enrolled(@my_students.count)
+      @attendance_session.update(total_not_attend: @my_students.count)
+      @attendance_session.update(secret_code: AttendanceSession.generate_secret)
+      # AttendanceSession.update_total_enrolled(@my_students.count)
       redirect_to @attendance_session
     else
-      render :new
+      render '_form'
     end
   end
 
@@ -40,13 +43,15 @@ class AttendanceSessionsController < ApplicationController
   end
 
   def destroy
+    @attendance_session = current_hrdx_user.attendance_sessions.find(params[:id])
     @attendance_session.destroy!
+    # @attendance_session.destroy!
     redirect_to attendance_sessions_path
   end
   private
   def attendance_session_params
     params.require(:attendance_session).permit(
-      :name, :begin, :end, :summary, :room, :course
+      :name, :begin, :summary, :room, :course
     )
   end
 

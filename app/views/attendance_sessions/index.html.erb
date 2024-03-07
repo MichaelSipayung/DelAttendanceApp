@@ -1,4 +1,23 @@
 <h1 class="my-4">Attendance session lists</h1>
+<div class="fixed-bottom m-3 p-2 text-end">
+  <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#newSessionModal">
+    <i class="bi bi-plus-circle-fill"></i> New Session
+  </button>
+</div>
+
+<div class="modal fade" id="newSessionModal" tabindex="-1" aria-labelledby="newSessionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="newSessionModalLabel"><i class="bi bi-calendar-check-fill"></i> New Attendance Session</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= render 'form', attendance_session: @attendance_session %>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row row-cols-1 row-cols-md-4 g-4"> <!-- 4 cards per row -->
   <% @attendance_sessions.each_with_index do |attendance_session, index| %>
@@ -8,25 +27,27 @@
              style="background: linear-gradient(to right,
                <%= %w[#ff5f6d #ffc371 #24C6DC #514A9D #FF512F #DD2476 #DA22FF #9733EE][index % 8] %>,
                <%= %w[#ffc371 #24C6DC #514A9D #FF512F #DD2476 #DA22FF #9733EE #ff5f6d][(index+1) % 8] %>);">
-          <i class="bi bi-calendar-check-fill"></i> <%= attendance_session.name %>
+          <i class="bi bi-calendar-check-fill"></i> <%= attendance_session.name.split[0..3].join(' ') %>
         </div>
         <div class="card-body">
-          <p class="card-text"><i class="bi bi-card-text"></i> <%= attendance_session.summary %></p>
+          <p class="card-text"><i class="bi bi-card-text"></i> <%= attendance_session.summary.split[0..9].join(' ') %></p>
+
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="bi bi-person-check-fill"></i>
-              Total not attend: <%= attendance_session.attendance_logs.count %></li>
+              Total Absences : <%= attendance_session.attendance_logs.count %></li>
             <li class="list-group-item"><i class="bi bi-person-x-fill"></i>
-              Total Attend: <%= attendance_session.total_not_attend-attendance_session.attendance_logs.count%></li>
-            <li class="list-group-item"><i class="bi bi-book-fill"></i> Course: <%= attendance_session.course %></li>
+              Total Attendees : <%= attendance_session.total_not_attend-attendance_session.attendance_logs.count%></li>
+            <li class="list-group-item"><i class="bi bi-book-fill"></i> Room Name : <%= attendance_session.room %></li>
           </ul>
         </div>
         <div class="card-footer">
           <%= link_to '<i class="bi bi-pencil-fill"></i> Edit'.html_safe,
                       edit_attendance_session_path(attendance_session), class: 'btn btn-primary' %>
-          <%= link_to '<i class="bi bi-eye-fill"></i> Lihat'.html_safe,
-                       attendance_session, class: 'btn btn-success' %>
-          <%= link_to '<i class="bi bi-trash-fill"></i> Hapus'.html_safe,
-                       attendance_session, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <%= link_to '<i class="bi bi-eye-fill"></i> View'.html_safe,
+                      attendance_session, class: 'btn btn-success' %>
+          <%= link_to '<i class="bi bi-trash-fill"></i> Remove'.html_safe,
+                      attendance_session, data: {turbo_method: :delete, turbo_confirm: 'Are you sure to delete?'},
+                      class: 'btn btn-danger' %>
         </div>
       </div>
     </div>

@@ -7,12 +7,15 @@
           <h1 class="h3 mb-0"><i class="bi bi-calendar-check-fill"></i> Attendance Session</h1>
         </div>
         <div class="card-body">
-          <%= form_with(model: @attendance_session, scope: :attendance_session, local: true, data: {turbo: false}) do |f|%>
+          <%= form_with(model: @attendance_session,
+                        scope: :attendance_session, local: true, data: {turbo: false}) do |f|%>
             <div class="mb-3">
               <%= f.label :Pilih_mata_kuliah, class: "form-label" %>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-book-fill"></i></span>
-                <%= f.select :course, options_for_select(@attendance_session_dropdown.map{ |option| [option[:nama_kul_ind], option[:pengajaran_id]] }), {}, {class: 'form-select'} %>
+                <%= f.select :course, options_for_select(
+                  @attendance_session_dropdown.map{ |option| [option[:nama_kul_ind],
+                                                              option[:pengajaran_id]] }), {}, {class: 'form-select'} %>
               </div>
             </div>
             <div class="mb-3">

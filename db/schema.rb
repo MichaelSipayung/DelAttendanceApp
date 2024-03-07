@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_06_080213) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_07_093347) do
   create_table "attendance_logs", force: :cascade do |t|
     t.string "dim"
     t.string "status"
@@ -33,7 +33,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_080213) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "pegawai_id"
-    t.boolean "active"
+    t.boolean "active", default: true
+    t.integer "secret_code"
   end
 
   create_table "attendance_statuses", force: :cascade do |t|
