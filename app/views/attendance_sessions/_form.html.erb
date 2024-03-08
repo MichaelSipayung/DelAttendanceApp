@@ -39,7 +39,8 @@
         <%= f.label :time_begin, class: "form-label" %>
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-clock-fill"></i></span>
-          <%= f.text_field :begin, class: "form-control",placeholder: 'Enter start time 08.15',required: true %>
+          <%= f.text_field :begin, value: Time.now.strftime('%H.%M'),class: "form-control",
+                           placeholder: 'Enter start time 08.15',required: true %>
         </div>
       </div>
     </div>
@@ -48,7 +49,8 @@
         <%= f.label :room_name, class: "form-label" %>
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-house-door-fill"></i></span>
-          <%= f.text_field :room, class: "form-control",placeholder: 'Enter room name', required: true %>
+          <%= f.select :room, options_for_select(MrefRLokasi.available_locations), {},
+                       {class: 'form-select'} %>
         </div>
       </div>
     </div>

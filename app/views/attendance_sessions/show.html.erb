@@ -4,13 +4,15 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="card shadow-lg rounded">
-        <div class="card-header text-center bg-primary text-white">
-          <h1><i class="bi bi-calendar-check-fill"></i> Attendance Session List</h1>
+        <div class="card-header text-left bg-primary text-white">
+          <h4 class="mb-0" style="font-family: 'Arial', sans-serif; font-weight: 300;">
+            <i class="bi bi-journal-text me-2"></i> <i>Topic: <%= @attendance_session.name %></i>
+          </h4>
         </div>
         <div class="card-body">
-          <p><strong>Topic :</strong> <%= @attendance_session.name %></p>
+<!--          <p><strong>Topic :</strong> <%#= @attendance_session.name %></p>-->
 <!--          <p><strong>Summary :</strong> <%#= @attendance_session.summary %></p>-->
-          <p><strong>Total Enrolled Students :</strong> <%= @my_students.count %></p>
+<!--          <p><strong>Total Enrolled Students :</strong> <%#= @my_students.count %></p>-->
           <%= form_with(url: attendance_logs_path, method: :post, local: true, data: {turbo: false}) do %>
             <%=hidden_field_tag :attendance_session_id, @attendance_session.id %>
             <% if flash[:alert] %>
@@ -23,7 +25,7 @@
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
-              <%= text_field_tag :secret_code, nil, placeholder: 'Enter token ( provided by student )',
+              <%= text_field_tag :secret_code, nil, required: true,placeholder: 'Enter token ( provided by student )',
                                  class: 'form-control', title: 'Token is provided by the student' %>
             </div>
 

@@ -1,4 +1,8 @@
-<h1 class="my-4">Attendance session lists</h1>
+<div class="d-flex align-items-center my-4">
+<!--  <i class="bi bi-calendar-check-fill me-2"></i>-->
+  <h1 class="mb-0">Manage Attendance Sessions</h1>
+</div>
+<hr/>
 <div class="fixed-bottom m-3 p-2 text-end">
   <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#newSessionModal">
     <i class="bi bi-plus-circle-fill"></i> New Session
@@ -37,7 +41,8 @@
               Total Absences : <%= attendance_session.attendance_logs.count %></li>
             <li class="list-group-item"><i class="bi bi-person-x-fill"></i>
               Total Attendees : <%= attendance_session.total_not_attend-attendance_session.attendance_logs.count%></li>
-            <li class="list-group-item"><i class="bi bi-book-fill"></i> Room Name : <%= attendance_session.room %></li>
+            <li class="list-group-item"><i class="bi bi-book-fill"></i> Room Name :
+              <%= MrefRLokasi.get_location_name(attendance_session.room ) %></li>
           </ul>
         </div>
         <div class="card-footer">
@@ -53,3 +58,4 @@
     </div>
   <% end %>
 </div>
+<br>

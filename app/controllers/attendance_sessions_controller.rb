@@ -2,7 +2,7 @@ class AttendanceSessionsController < ApplicationController
   before_action :set_attendance_dropdown, only: [:new, :edit, :index, :create, :update]
   def index
     #@attendance_sessions = current_hrdx_user.attendance_sessions.all
-    @attendance_sessions = current_hrdx_user.attendance_sessions.order(created_at: :desc)
+    @attendance_sessions = current_hrdx_user.attendance_sessions.order(created_at: :desc).limit(20)
     @attendance_session = current_hrdx_user.attendance_sessions.build
     #.limit(12)
     # @total_students = current_hrdx_user.total_students(@attendance_sessions)
@@ -63,4 +63,5 @@ class AttendanceSessionsController < ApplicationController
       {pengajaran_id: pengajaran.id, nama_kul_ind: KrkmKuliah.find(pengajaran.kuliah_id).nama_kul_ind}
     end
   end
+
 end
