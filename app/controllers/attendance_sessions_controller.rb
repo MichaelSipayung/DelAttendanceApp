@@ -1,5 +1,7 @@
 class AttendanceSessionsController < ApplicationController
   before_action :set_attendance_dropdown, only: [:new, :edit, :index, :create, :update]
+  before_action :redirect_to_login, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :set_attendance_session, only: [:show, :edit, :update, :destroy]
   def index
     #@attendance_sessions = current_hrdx_user.attendance_sessions.all
     @attendance_sessions = current_hrdx_user.attendance_sessions.order(created_at: :desc).limit(20)
@@ -11,6 +13,7 @@ class AttendanceSessionsController < ApplicationController
   def show
     @attendance_session = AttendanceSession.find(params[:id])
     @my_students = current_hrdx_user.my_students(@attendance_session.course)
+    @not_attend = @attendance_session.attendance_logs
   end
   def new
     @attendance_session = current_hrdx_user.attendance_sessions.build
@@ -51,8 +54,7 @@ class AttendanceSessionsController < ApplicationController
   private
   def attendance_session_params
     params.require(:attendance_session).permit(
-      :name, :begin, :summary, :room, :course
-    )
+      :name, :begin, :summary, :room, :course)
   end
 
   def set_attendance_dropdown
@@ -64,4 +66,11 @@ class AttendanceSessionsController < ApplicationController
     end
   end
 
+  def set_attendance_session
+    @attendance_session = AttendanceSession.find_by(id: params[:id])
+    if @attendance_session == nil
+      return redirect_to root_path
+    end
+    redirect_to root_path unless @attendance_session.hrdx_pegawai == current_hrdx_user
+  end
 end

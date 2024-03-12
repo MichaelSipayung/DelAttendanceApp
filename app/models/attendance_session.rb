@@ -1,4 +1,5 @@
 class AttendanceSession < ApplicationRecord
+  validates :course, presence: true
   validates :name, presence: true, length: { minimum: 5, maximum: 100 }
   validates :begin, presence: true, format: { with: /\A([01]?[0-9]|2[0-3])\.[0-5][0-9]\z/,
                       message: "must be a valid time format (HH.mm)" }

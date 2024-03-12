@@ -1,4 +1,5 @@
 class AttendanceLogsController < ApplicationController
+  before_action :redirect_to_login, only: [:create]
   def create
     attendance_session = AttendanceSession.find(params[:attendance_session_id])
     if attendance_session.active? && params[:secret_code].to_i == attendance_session.secret_code

@@ -17,7 +17,8 @@ class HrdxPegawai < ActiveRecord::Base
                                  .where(prkl_krs_mhs: {status_approval: 1})
                                   .pluck(:krs_mhs_id)
     dim_krs=PrklKrsMhs.find(krs_mahasiswa).pluck(:dim_id)
-    DimxDim.find(dim_krs)
+    # DimxDim.find(dim_krs)
+    DimxDim.where(dim_id: dim_krs).order(:nama)
   end
 
 end

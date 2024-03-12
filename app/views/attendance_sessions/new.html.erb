@@ -15,7 +15,8 @@
                 <span class="input-group-text"><i class="bi bi-book-fill"></i></span>
                 <%= f.select :course, options_for_select(
                   @attendance_session_dropdown.map{ |option| [option[:nama_kul_ind],
-                                                              option[:pengajaran_id]] }), {}, {class: 'form-select'} %>
+                                                              option[:pengajaran_id]] }), {}, {class: 'form-select',
+                                                                                               required: true} %>
               </div>
             </div>
             <div class="mb-3">

@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :redirect_to_login, only: [:destroy]
   def new
   end
 
@@ -17,6 +18,10 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    session.delete(:user_id)
+    @current_user = nil
+    flash[:success] = "Logged out successfully!"
     redirect_to root_path
   end
+
 end
