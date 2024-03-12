@@ -1,0 +1,56 @@
+<br>
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  <% @today_courses.each_with_index do |attendance_session, index| %>
+    <div class="col">
+      <div class="card h-100 shadow-lg rounded hover-shadow">
+        <div class="card-header text-white"
+             style="background: linear-gradient(to right,
+               <%= %w[#ff5f6d #ffc371 #24C6DC #514A9D #FF512F #DD2476 #DA22FF #9733EE][index % 8] %>,
+               <%= %w[#ffc371 #24C6DC #514A9D #FF512F #DD2476 #DA22FF #9733EE #ff5f6d][(index+1) % 8] %>);">
+          <i class="bi bi-calendar-check-fill"></i> <%= attendance_session.name.split[0..3].join(' ') %>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><i class="bi bi-card-text"></i> <%= attendance_session.summary.split[0..9].join(' ') %></p>
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="bi bi-person-check-fill"></i>
+              Total Absences : <%= attendance_session.attendance_logs.count %></li>
+            <li class="list-group-item"><i class="bi bi-person-x-fill"></i>
+              Total Attendees : <%= attendance_session.total_not_attend-attendance_session.attendance_logs.count%></li>
+            <li class="list-group-item"><i class="bi bi-book-fill"></i> Room Name :
+              <%= MrefRLokasi.get_location_name(attendance_session.room ) %></li>
+            <li class="list-group-item">
+              <i class="bi bi-key-fill"></i> Token
+              <div class="input-group">
+                <input type="password" class="form-control secretCode"
+                       value="<%= attendance_session.secret_code %>" style="width: 80px;">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary toggleButton" type="button"
+                          onclick="toggleSecretCodeVisibility(this)">
+                    <i class="bi bi-eye-fill toggleEye"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<br>
+<script>
+    function toggleSecretCodeVisibility(element) {
+        var x = element.parentElement.previousElementSibling;
+        var y = element.children[0];
+        if (x.type === "password") {
+            x.type = "text";
+            y.className = "bi bi-eye-slash-fill";
+        } else {
+            x.type = "password";
+            y.className = "bi bi-eye-fill";
+        }
+    }
+</script>

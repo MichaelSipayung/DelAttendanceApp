@@ -1,7 +1,109 @@
-<h1> Attendance session list </h1>
-<p>Topik  : <b><%= @attendance_session.name %></b></p>
-<p>Summary: <b><%= @attendance_session.summary %></b></p>
-<p>total_attend: <b><%= @attendance_session.total_attend %></b></p>
-<p>total_not_attend: <b><%= @attendance_session.total_not_attend %></b></p>
-<p>course: <b><%= @attendance_session.course %></b></p>
-<p><%= link_to 'Edit sesi kuliah',edit_attendance_session_path(@attendance_session) %></p>
+<div id="show-view">
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card shadow-lg rounded">
+        <div class="card-header text-left bg-primary text-white">
+          <h4 class="mb-0" style="font-family: 'Arial', sans-serif; font-weight: 300;">
+            <i class="bi bi-journal-text me-2"></i> <i>Topic: <%= @attendance_session.name %></i>
+          </h4>
+        </div>
+        <div class="card-body">
+<!--          <p><strong>Topic :</strong> <%#= @attendance_session.name %></p>-->
+<!--          <p><strong>Summary :</strong> <%#= @attendance_session.summary %></p>-->
+<!--          <p><strong>Total Enrolled Students :</strong> <%#= @my_students.count %></p>-->
+          <%= form_with(url: attendance_logs_path, method: :post, local: true, data: {turbo: false}) do %>
+            <%=hidden_field_tag :attendance_session_id, @attendance_session.id %>
+            <% if flash[:alert] %>
+              <div class="alert alert-danger">
+                <i class="bi bi-info-circle-fill"></i> <%= flash[:alert] %>
+              </div>
+            <% end %>
+            <div class="alert alert-info" role="alert">
+              <i class="bi bi-info-circle-fill"></i> Please enter the provided token before closing the session.
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+              <%= text_field_tag :secret_code, nil, required: true,placeholder: 'Enter token ( provided by student )',
+                                 class: 'form-control', title: 'Token is provided by the student' %>
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="enrolled-tab"
+                        data-bs-toggle="tab" data-bs-target="#enrolled" type="button"
+                        role="tab" aria-controls="enrolled" aria-selected="true">Enrolled
+                  <span class="badge bg-success small-badge"><%= @my_students.count %></span>
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="not-attend-tab" data-bs-toggle="tab"
+                        data-bs-target="#not-attend" type="button" role="tab"
+                        aria-controls="not-attend" aria-selected="false">Not Attend
+                  <span class="badge bg-danger small-badge"><%= @not_attend.count %></span>
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="enrolled" role="tabpanel" aria-labelledby="enrolled-tab">
+                <table class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+<!--                    <th scope="col">#</th>-->
+                    <th scope="col">Name</th>
+<!--                    <th scope="col">NIM</th>-->
+                    <th scope="col">Status</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @my_students.each_with_index do |student, index| %>
+                    <tr>
+<!--                      <th scope="row"><%#= index + 1 %></th>-->
+                      <td><%= student.nama.split[0..1].join(' ') %></td>
+<!--                      <td><%#= student.nim %></td>-->
+                      <td>
+                        <select name="attendance_logs[<%= student.id %>][status]" class="form-select">
+                          <%= options_for_select(AttendanceStatus.available_status) %>
+                        </select>
+                      </td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+                <button type="submit" class="btn btn-success position-fixed bottom-0 end-0 m-3">
+                  <i class="bi bi-alarm-fill"></i> Close Session
+                </button>
+              </div>
+              <div class="tab-pane fade" id="not-attend" role="tabpanel" aria-labelledby="not-attend-tab">
+                <table class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">NIM</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @not_attend.each_with_index do |student, index| %>
+                    <tr>
+                      <th scope="row"><%= index + 1 %></th>
+                      <td><%= list_not_attended(student.dim).nama.split[0..1].join(' ') %></td>
+                      <td><%= list_not_attended(student.dim).nim %></td>
+                      <td>
+                      <%= AttendanceStatus.find(student.status).status %>
+                      </td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,76 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+.hover-shadow:hover {
+    transform: scale(1.02);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.list-group-item:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+.btn-close-white {
+    filter: invert(1);
+}
+#show-view .card {
+    border-radius: 15px;
+}
+#show-view .card-header {
+    font-size: 1.5rem;
+    border-radius: 15px 15px 0 0;
+}
+#show-view .table {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+#show-view .table thead tr {
+    background-color: #f8f9fa;
+}
+#show-view .table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+#show-view .form-select {
+    border-radius: 15px;
+    border: 1px solid #ced4da;
+}
+#show-view .btn-success {
+    border-radius: 50px;
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+/*.field_with_errors .form-control {*/
+/*    display: flex;*/
+/*    width: 100%;*/
+/*}*/
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
+footer {
+    margin-top: auto;
+}
+.small-badge {
+    font-size: 0.6rem;
+    padding: .2em .4em;
+}

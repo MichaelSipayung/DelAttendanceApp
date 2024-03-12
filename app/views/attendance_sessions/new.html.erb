@@ -1,27 +1,63 @@
 <% provide(:title, "Attendance Session") %>
-<h1>Attendance Session</h1>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: @attendance_session, scope: :attendance_session, local: true,
-                  data: {turbo: false}) do |f|%>
-      <%= f.label :Pilih_mata_kuliah %>
-      <%= f.select :course, options_from_collection_for_select(@attendance_session_dropdown, 'kuliah_id', 'nama_kul_ind'),
-                   {}, {class: 'form-select'}%>
-      <%= f.label :nama_sesi %>
-      <%= f.text_field :name, class: "form-control" %>
-
-      <%= f.label :mulai %>
-      <%= f.text_field :begin, class: "form-control" %>
-
-      <%= f.label :berakhir %>
-      <%= f.text_field :end, class: "form-control" %>
-
-      <%= f.label :summary %>
-      <%= f.text_field :summary, class: "form-control" %>
-
-      <%= f.label :ruangan %>
-      <%= f.text_field :room, class: "form-control" %>
-      <%=f.submit "Buat sesi", class: "btn btn-primary"%>
-    <%end %>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h1 class="h3 mb-0"><i class="bi bi-calendar-check-fill"></i> Attendance Session</h1>
+        </div>
+        <div class="card-body">
+          <%= form_with(model: @attendance_session,
+                        scope: :attendance_session, local: true, data: {turbo: false}) do |f|%>
+            <div class="mb-3">
+              <%= f.label :Pilih_mata_kuliah, class: "form-label" %>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-book-fill"></i></span>
+                <%= f.select :course, options_for_select(
+                  @attendance_session_dropdown.map{ |option| [option[:nama_kul_ind],
+                                                              option[:pengajaran_id]] }), {}, {class: 'form-select',
+                                                                                               required: true} %>
+              </div>
+            </div>
+            <div class="mb-3">
+              <%= f.label :nama_sesi, class: "form-label" %>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+            </div>
+            <div class="mb-3">
+              <%= f.label :mulai, class: "form-label" %>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-clock-fill"></i></span>
+                <%= f.text_field :begin, class: "form-control" %>
+              </div>
+            </div>
+            <div class="mb-3">
+              <%= f.label :berakhir, class: "form-label" %>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-clock-fill"></i></span>
+                <%= f.text_field :end, class: "form-control" %>
+              </div>
+            </div>
+            <div class="mb-3">
+              <%= f.label :summary, class: "form-label" %>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-list-check"></i></span>
+                <%= f.text_field :summary, class: "form-control" %>
+              </div>
+            </div>
+            <div class="mb-3">
+              <%= f.label :ruangan, class: "form-label" %>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-house-door-fill"></i></span>
+                <%= f.text_field :room, class: "form-control" %>
+              </div>
+            </div>
+            <%= f.submit "Buat sesi", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

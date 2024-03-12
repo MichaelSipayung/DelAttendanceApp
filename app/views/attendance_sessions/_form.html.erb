@@ -1,0 +1,62 @@
+<% provide(:title, "Attendance Session") %>
+<% if @attendance_session.errors.any? %>
+  <div class="alert alert-danger">
+    <strong><%= pluralize(@attendance_session.errors.count, "error") %> prohibited this attendance session:</strong>
+    <ul>
+      <% @attendance_session.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with(model: @attendance_session, scope: :attendance_session, local: true, data: {turbo: false}) do |f|%>
+  <div class="mb-3">
+    <%= f.label :choose_your_course, class: "form-label" %>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-book-fill"></i></span>
+      <%= f.select :course, options_for_select(
+        @attendance_session_dropdown.map{ |option| [option[:nama_kul_ind],
+                                                    option[:pengajaran_id]] }), {}, {class: 'form-select',
+                                                                                     required: true} %>
+    </div>
+  </div>
+  <div class="mb-3">
+    <%= f.label :session_name, class: "form-label" %>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+      <%= f.text_field :name, class: "form-control",placeholder: 'Enter session name',required: true %>
+    </div>
+  </div>
+  <div class="mb-3">
+    <%= f.label :summary, class: "form-label" %>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-list-check"></i></span>
+      <%= f.text_field :summary, class: "form-control", placeholder: 'Enter summary',required: true %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= f.label :time_begin, class: "form-label" %>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-clock-fill"></i></span>
+          <%= f.text_field :begin, value: Time.now.strftime('%H.%M'),class: "form-control",
+                           placeholder: 'Enter start time 08.15',required: true %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="mb-3">
+        <%= f.label :room_name, class: "form-label" %>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-house-door-fill"></i></span>
+          <%= f.select :room, options_for_select(MrefRLokasi.available_locations), {},
+                       {class: 'form-select', required: true} %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= f.button type: 'submit', class: "btn btn-primary" do %>
+    <i class="bi bi-plus-circle-fill"></i> Create session
+  <% end %>
+<% end %>
