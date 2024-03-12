@@ -1,7 +1,9 @@
 class AttendanceSessionsController < ApplicationController
-  before_action :set_attendance_dropdown, only: [:new, :edit, :index, :create, :update]
   before_action :redirect_to_login, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   before_action :set_attendance_session, only: [:show, :edit, :update, :destroy]
+  before_action :set_pegawai, only: [:index]
+  before_action :set_attendance_dropdown, only: [:new, :edit, :index, :create, :update]
+
   def index
     #@attendance_sessions = current_hrdx_user.attendance_sessions.all
     @attendance_sessions = current_hrdx_user.attendance_sessions.order(created_at: :desc).limit(20)

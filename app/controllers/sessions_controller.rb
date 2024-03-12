@@ -4,11 +4,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    response = AuthenticationService.new.authenticate(params[:session][:username], params[:session][:password])
+    response = AuthenticationService.new.authenticate(params[:session][:username],
+                                                      params[:session][:password])
     if response['result']
-      user = User.find_or_create_by(username: response['username'], user_id: response['user_id'])
+      user = User.find_or_create_by(username: response['username'],
+                                    user_id: response['user_id'])
       session[:user_id] = user.user_id
-      flash[:success] = "Logged in successfully!"
+      # flash[:success] = "Logged in successfully!"
+      if log_in_as_student?
+        return redirect_to students_path
+      end
       redirect_to attendance_sessions_path
     else
       flash.now[:alert] = 'Invalid username or password'
