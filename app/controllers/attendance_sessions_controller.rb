@@ -1,7 +1,7 @@
 class AttendanceSessionsController < ApplicationController
   before_action :redirect_to_login, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   before_action :set_attendance_session, only: [:show, :edit, :update, :destroy]
-  before_action :set_pegawai, only: [:index]
+  before_action :set_pegawai, only: [:index, :new]
   before_action :set_attendance_dropdown, only: [:new, :edit, :index, :create, :update]
 
   def index
@@ -28,6 +28,7 @@ class AttendanceSessionsController < ApplicationController
       @attendance_session.update(total_not_attend: @my_students.count)
       @attendance_session.update(secret_code: AttendanceSession.generate_secret)
       # AttendanceSession.update_total_enrolled(@my_students.count)
+      flash[:success] = "Attendance session has been created."
       redirect_to @attendance_session
     else
       render '_form'
@@ -41,6 +42,7 @@ class AttendanceSessionsController < ApplicationController
   def update
     @attendance_session = current_hrdx_user.attendance_sessions.find(params[:id])
     if @attendance_session.update(attendance_session_params)
+      flash[:success] = "Attendance session has been updated."
       redirect_to @attendance_session
     else
       render :edit
@@ -51,6 +53,7 @@ class AttendanceSessionsController < ApplicationController
     @attendance_session = current_hrdx_user.attendance_sessions.find(params[:id])
     @attendance_session.destroy!
     # @attendance_session.destroy!
+    flash[:success] = "Attendance session has been deleted."
     redirect_to attendance_sessions_path
   end
   private
@@ -66,6 +69,7 @@ class AttendanceSessionsController < ApplicationController
     @attendance_session_dropdown = map_to_adak_pengajaran.map do |pengajaran|
       {pengajaran_id: pengajaran.id, nama_kul_ind: KrkmKuliah.find(pengajaran.kuliah_id).nama_kul_ind}
     end
+    @attendance_session_dropdown.sort_by! { |h| h[:nama_kul_ind] }
   end
 
   def set_attendance_session
