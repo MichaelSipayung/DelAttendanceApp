@@ -7,3 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+AttendanceStatus.create!(
+  id:1,
+  status: 'Hadir'
+)
+AttendanceStatus.create!(
+  id: 2,
+  status: 'Absen'
+)
+AttendanceStatus.create!(
+  id: 3,
+  status: 'Sakit'
+)
+AttendanceStatus.create!(
+  id: 4,
+  status: 'Ijin'
+)

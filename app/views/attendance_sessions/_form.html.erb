@@ -24,21 +24,27 @@
     <%= f.label :session_name, class: "form-label" %>
     <div class="input-group">
       <span class="input-group-text"><i class="bi bi-card-text"></i></span>
-      <%= f.text_field :name, class: "form-control",placeholder: 'Enter session name',required: true %>
+      <%= f.text_field :name, id: "session_name",class: "form-control",placeholder: 'Enter session name',required: true %>
     </div>
   </div>
   <div class="mb-3">
-    <%= f.label :summary, class: "form-label" %>
+    <%= f.label :summary, class: "form-label" do %>
+      Summary
+      <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Please enter a brief summary of the session"></span>
+    <% end %>
     <div class="input-group">
       <span class="input-group-text"><i class="bi bi-list-check"></i></span>
-      <%= f.text_field :summary, class: "form-control", placeholder: 'Enter summary',required: true %>
+      <%= f.text_area :summary, id: "summary", class: "form-control", placeholder: 'Enter summary', required: true %>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
       <div class="mb-3">
-        <%= f.label :time_begin, class: "form-label" %>
-        <div class="input-group">
+      <%= f.label :time_begin, class: "form-label" do %>
+        Time begin
+        <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Enter the start time in the format HH.MM"></span>
+      <% end %>
+      <div class="input-group">
           <span class="input-group-text"><i class="bi bi-clock-fill"></i></span>
           <%= f.text_field :begin, value: Time.now.strftime('%H.%M'),class: "form-control",
                            placeholder: 'Enter start time 08.15',required: true %>
@@ -60,3 +66,9 @@
     <i class="bi bi-plus-circle-fill"></i> Create session
   <% end %>
 <% end %>
+
+<script>
+  document.getElementById('session_name').addEventListener('input', function() {
+    document.getElementById('summary').value = this.value;
+  });
+</script>
