@@ -16,7 +16,8 @@ class SessionsController < ApplicationController
       end
       redirect_to attendance_sessions_path
     else
-      flash.now[:alert] = 'Invalid username or password'
+      flash.now[:danger] = '<i class="bi bi-exclamation-triangle-fill"></i> Invalid username or password.
+        Please ensure they are the same as your CIS site credentials.'
       render :new
     end
   end

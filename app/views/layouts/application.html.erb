@@ -18,6 +18,11 @@
 
   <body>
     <%= render partial: "shared/navbar" %>
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%=message_type %>">
+          <%= message.html_safe %>
+        </div>
+      <% end %>
     <%= yield %>
    <%= render partial: "shared/footer" %>
   </body>

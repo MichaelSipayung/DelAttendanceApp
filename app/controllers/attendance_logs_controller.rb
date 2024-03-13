@@ -8,6 +8,7 @@ class AttendanceLogsController < ApplicationController
           dim: student_id, status: attributes[:status]) unless attributes[:status] == '1'
       end
       attendance_session.update(end: Time.now, active: false)
+      flash[:success] = "Attendance session has been closed."
       redirect_to attendance_sessions_path
     else
       redirect_to attendance_session_path(attendance_session), alert: "Invalid secret code, please try again."

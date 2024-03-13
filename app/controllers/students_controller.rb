@@ -1,7 +1,10 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:index]
   def index
-    @today_courses = AttendanceSession.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)
+    @today_courses =
+      AttendanceSession.where(
+        created_at: Date.today.beginning_of_day..Date.today.end_of_day
+      ).order(created_at: :desc)
     # @today_courses_logs = @today_courses.attendance_logs
   end
   private
