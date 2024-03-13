@@ -10,11 +10,17 @@
       <h1 class="text-center mb-4">Sign in</h1> <!-- Added margin bottom -->
       <%= form_with(url: login_path, scope: :session, local: true, data: {turbo: false}) do |f| %>
         <div class="mb-3">
-          <%= f.label :username, class: 'form-label' %>
-          <%= f.text_field :username, class: 'form-control', required: true,placeholder: 'Username' %>
+        <%= f.label :username, class: "form-label" do %>
+          Username
+          <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Your username should be the same as on the CIS site"></span>
+        <% end %>
+        <%= f.text_field :username, class: 'form-control', required: true,placeholder: 'Username' %>
         </div>
         <div class="mb-3">
-          <%= f.label :password, class: 'form-label' %>
+          <%= f.label :password, class: "form-label" do %>
+            Password
+            <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Your password should be the same as on the CIS site"></span>
+          <% end %>
           <div class="input-group">
             <%= f.password_field :password, class: 'form-control',
                                  required: true,placeholder: 'Password', id: 'password-field' %>
