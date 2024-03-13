@@ -69,6 +69,7 @@ class AttendanceSessionsController < ApplicationController
     @attendance_session_dropdown = map_to_adak_pengajaran.map do |pengajaran|
       {pengajaran_id: pengajaran.id, nama_kul_ind: KrkmKuliah.find(pengajaran.kuliah_id).nama_kul_ind}
     end
+    @attendance_session_dropdown.sort_by! { |h| h[:nama_kul_ind] }
   end
 
   def set_attendance_session

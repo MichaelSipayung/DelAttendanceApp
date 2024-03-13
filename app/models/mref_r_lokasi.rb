@@ -6,7 +6,8 @@ class MrefRLokasi < ActiveRecord::Base
   self.primary_key = 'lokasi_id'
 
   def self.available_locations
-    MrefRLokasi.all.map{ |lokasi| [lokasi.name, lokasi.lokasi_id]}
+    # MrefRLokasi.all.map{ |lokasi| [lokasi.name, lokasi.lokasi_id]}
+    MrefRLokasi.order(:name).map { |lokasi| [lokasi.name, lokasi.lokasi_id]  }
   end
 
   def self.get_location_name(id)
