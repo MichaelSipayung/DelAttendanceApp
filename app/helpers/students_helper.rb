@@ -5,7 +5,7 @@ module StudentsHelper
   end
 
   def set_student # callback for student controller
-    unless log_in_as_student?
+    unless log_in_as_student? && logged_in?
       redirect_to login_path
     end
   end

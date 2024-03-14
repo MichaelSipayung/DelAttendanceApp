@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   before_action :redirect_to_login, only: [:destroy]
   def new
-    change_root # chane the root path if the user is already logged in
+    change_root # change the root path if the user is already logged in
   end
 
   def create
