@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_07_093347) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_14_014518) do
   create_table "attendance_logs", force: :cascade do |t|
     t.string "dim"
     t.string "status"
@@ -48,6 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_07_093347) do
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_digest"
   end
 
   add_foreign_key "attendance_logs", "attendance_sessions"
