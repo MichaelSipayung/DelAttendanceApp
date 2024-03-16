@@ -7,7 +7,7 @@ class StudentsController < ApplicationController
       ).order(created_at: :desc)
     # @today_courses_logs = @today_courses.attendance_logs
   end
-  private
+  # private
   # def set_student
   #   unless log_in_as_student?
   #     redirect_to login_path
