@@ -32,3 +32,11 @@ production:
   primary:
     <<: *default
     database: storage/production.sqlite3
+  old_database:
+    adapter: mysql2
+    encoding: utf8
+    database: cis_production
+    username: sdi
+    password: password
+    host: 172.22.42.160
+    port: 3306

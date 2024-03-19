@@ -12,18 +12,20 @@
         <div class="mb-3">
         <%= f.label :username, class: "form-label" do %>
           Username
-          <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Your username should be the same as on the CIS site"></span>
+<!--          <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Your username should be the same as on the CIS site"></span>-->
         <% end %>
-        <%= f.text_field :username, class: 'form-control', required: true,placeholder: 'Username' %>
+        <%= f.text_field :username, class: 'form-control', required: true,
+                         placeholder: 'Username (CIS credentials)' %>
         </div>
         <div class="mb-3">
           <%= f.label :password, class: "form-label" do %>
             Password
-            <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Your password should be the same as on the CIS site"></span>
+<!--            <span class="bi bi-info-circle-fill" data-bs-toggle="tooltip" title="Your password should be the same as on the CIS site"></span>-->
           <% end %>
           <div class="input-group">
             <%= f.password_field :password, class: 'form-control',
-                                 required: true,placeholder: 'Password', id: 'password-field' %>
+                                 required: true, placeholder: 'Password (CIS credentials)',
+                                 id: 'password-field' %>
             <span class="input-group-text">
               <i id="password-icon" class="bi bi-eye-fill"></i>
             </span>

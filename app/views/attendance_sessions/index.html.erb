@@ -26,6 +26,7 @@
 <div class="row row-cols-1 row-cols-md-4 g-4"> <!-- 4 cards per row -->
   <% @attendance_sessions.each_with_index do |attendance_session, index| %>
     <div class="col">
+      <%= link_to attendance_session, class: 'text-decoration-none text-dark' do %>
       <div class="card h-100 shadow-lg rounded hover-shadow">
         <div class="card-header text-white"
              style="background: linear-gradient(to right,
@@ -45,6 +46,7 @@
               <%= MrefRLokasi.get_location_name(attendance_session.room ) %></li>
           </ul>
         </div>
+        <%end %>
         <div class="card-footer">
           <%= link_to '<i class="bi bi-pencil-fill"></i> Edit'.html_safe,
                       edit_attendance_session_path(attendance_session), class: 'btn btn-primary' %>

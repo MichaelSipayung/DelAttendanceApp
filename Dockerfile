@@ -51,6 +51,9 @@ COPY --from=build /rails /rails
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
+# Set timezone
+USER root
+RUN ln -snf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && echo Asia/Jakarta > /etc/timezone
 USER rails:rails
 
 # Entrypoint prepares the database.
@@ -59,3 +62,4 @@ ENV SECRET_KEY_BASE=232de4faf5fe845ac48fe69d874ac12d0cb24a1e465c61b18ef2adce156f
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
